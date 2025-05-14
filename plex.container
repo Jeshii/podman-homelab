@@ -1,0 +1,22 @@
+[Unit]
+Description=Plex Media Server Container
+After=local-fs.target network-online.target
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900
+CPUQuota=100%
+
+[Container]
+Secret=plex_claim,type=env,target=PLEX_CLAIM
+Environment=TZ=<TIMEZONE>
+Image=docker.io/plexinc/pms-docker:latest
+Volume=%h/plex/config:/config
+Volume=%h/plex/transcode:/transcode
+Volume=%h/plex/media:/media
+ContainerName=plex
+PublishPort=32400:32400
+AutoUpdate=registry
+
+[Install]
+WantedBy=default.target

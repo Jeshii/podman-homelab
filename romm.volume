@@ -1,0 +1,4 @@
+[Volume]
+VolumeName=romm-mariadb-data
+VolumeName=romm-resources
+VolumeName=romm-redis-data

@@ -1,0 +1,5 @@
+[Unit]
+Description=ROMM network
+
+[Network]
+NetworkName=romm

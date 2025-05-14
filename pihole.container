@@ -1,0 +1,28 @@
+[Unit]
+Description=Pi-hole Container
+After=local-fs.target network-online.target
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900
+CPUQuota=50%
+
+[Container]
+ContainerName=pihole
+Environment=TZ=<TIMEZONE>
+Secret=pihole_webpassword,type=env,target=WEBPASSWORD
+Environment=PIHOLE_DNS_=9.9.9.9;8.8.8.8;1.1.1.1
+Environment=VIRTUAL_HOST=pi.hole
+Environment=PROXY_LOCATION=pi.hole
+Environment=DNSMASQ_LISTENING=all
+Image=docker.io/pihole/pihole:latest
+AutoUpdate=registry
+Volume=%h/pihole/etc-pihole:/etc/pihole
+Volume=%h/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
+Volume=%h/pihole/var-log:/var/log/pihole
+PublishPort=53:53/tcp
+PublishPort=53:53/udp
+PublishPort=443:443/tcp
+
+[Install]
+WantedBy=default.target

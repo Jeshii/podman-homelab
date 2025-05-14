@@ -1,0 +1,23 @@
+[Unit]
+Description=Scrypted Surveillance Container
+After=local-fs.target network-online.target
+
+[Service]
+Restart=on-failure
+TimeoutStartSec=900
+CPUQuota=100%
+
+[Container]
+ContainerName=scrypted
+Environment=SCRYPTED_NVR_VOLUME=/nvr
+Image=ghcr.io/koush/scrypted:latest
+LogDriver=none
+Volume=%h/scrypted/nvr:/nvr
+Volume=%h/scrypted/volume:/server/volume
+AutoUpdate=registry
+PublishPort=10443:10443
+PublishPort=41055:41055
+HostName=%H
+
+[Install]
+WantedBy=default.target

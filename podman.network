@@ -1,0 +1,6 @@
+[Network]
+Subnet=192.168.1.0/24
+# defgw ipp addr
+Gateway=192.168.1.254
+#label that describes what network is used for
+Label=podman
